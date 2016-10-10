@@ -1,3 +1,4 @@
+from random import randint
 
 class CreditCard(object):	
 	credit_card_number = None
@@ -15,12 +16,12 @@ class CreditCard(object):
 
 	def is_number_valid(self):
 		if len(self.credit_card_number) == 16:
-			return true
-		return false
+			return True
+		return False
 
 	def has_enough_funds(self, amount):
-		funds = randint(0, 10000)
-		if amount <= funds:
-			return true
-		return false
+		rand_choice = randint(0,1)
+		if rand_choice == 1:
+			return True
+		return False
 		
