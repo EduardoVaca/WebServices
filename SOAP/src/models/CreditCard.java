@@ -1,19 +1,10 @@
 package models;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import java.util.Random;
 
 /**
- *
- * @author eduardovaca
+ * Created by eduardovaca on 11/10/16.
  */
-
 public class CreditCard {
     private final String creditCardNumber;
     private final String firstName;
@@ -28,15 +19,17 @@ public class CreditCard {
         this.expirationDate = expirationDate;
         this.securityNumber = securityNumber;
     }
-    
+
     public boolean isCardValid() {
         return this.creditCardNumber.length() == 16;
     }
-    
+
     public boolean hasEnoughFunds(int amount) {
-       Random rand = new Random();
-       float funds = rand.nextInt(1000);
-       return amount <= funds;       
+        Random rand = new Random();
+        float funds = rand.nextInt(1000);
+        return amount <= funds;
     }
-    
+
 }
+
+
