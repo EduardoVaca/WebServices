@@ -16,11 +16,11 @@ import Foundation
 class BookStore: NSObject, XMLParserDelegate {
     
     var parser = XMLParser()
-    var xmlStringData = String()
     var currentElement = String()
     var passData = false
     var passBook = false
     var currentBook = [String: String]()
+    var booksDictionary = [[String: String]]()
     
     enum Fields: String {
         case workItem = "work"
@@ -39,31 +39,32 @@ class BookStore: NSObject, XMLParserDelegate {
         return URLSession(configuration: config)
     }()
     
-    func fetchBookByName(name: String) {
+    func processBookSearchRequest(dictionary: [[String: String]], error: Error?) -> BooksResult {
+        if let error = error {
+            return .Failure(error)
+        }
+        return GoodReadsAPI.booksFromTempDictionary(dictionary: dictionary)
+    }
+    
+    func fetchBookByName(name: String, completion: @escaping (BooksResult) -> ()) {
         
         let url = GoodReadsAPI.searchBooksURL(bookName: name)
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request) { (data, response, error) in
+            var result: BooksResult
             if let xmlData = data {
                 
                 self.parser = XMLParser(data: xmlData)
                 self.parser.delegate = self
                 
-                let success = self.parser.parse()
+                self.parser.parse()
                 
-                if success {
-                    print("SUCCESS")
-                    
-                }
-                else {
-                    print("Failure in Parser")
-                }
+                result = self.processBookSearchRequest(dictionary: self.booksDictionary, error: error)
+                completion(result)
             }
             else if let requestError = error {
-                print("Error fetching book: \(requestError)")
-            }
-            else {
-                print("Unexcpeted error")
+                result = self.processBookSearchRequest(dictionary: self.booksDictionary, error: requestError)
+                completion(result)
             }
         }
         // By default the task is in 'suspend' mode.
@@ -89,8 +90,8 @@ class BookStore: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if passData && elementName == Fields.workItem.rawValue {
             passData = false
-            // Create book
-            print(currentBook)
+
+            booksDictionary.append(currentBook)
             currentBook.removeAll()
             currentElement = ""
         }
@@ -111,7 +112,6 @@ class BookStore: NSObject, XMLParserDelegate {
                     currentBook[Fields.year.rawValue] = string
                 }
             default: break
-                
             }
         }
         if passBook {

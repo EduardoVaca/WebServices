@@ -15,6 +15,13 @@ class SearchBooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bookStore.fetchBookByName(name: "Pedro")
+        bookStore.fetchBookByName(name: "Harry") { (booksResult) in
+            switch booksResult {
+            case let .Success(books):
+                print("Successfully found: \(books.count) books")
+            case let .Failure(error):
+                print("Error fetching photot: \(error)")
+            }
+        }
     }
 }

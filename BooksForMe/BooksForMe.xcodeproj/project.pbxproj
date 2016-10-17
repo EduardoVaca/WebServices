@@ -14,6 +14,7 @@
 		486D58391DB4D7B00079EA23 /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D58381DB4D7B00079EA23 /* SearchBooksViewController.swift */; };
 		486D583B1DB4D8A70079EA23 /* GoodReadsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D583A1DB4D8A70079EA23 /* GoodReadsAPI.swift */; };
 		486D583D1DB4EE990079EA23 /* BookStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D583C1DB4EE990079EA23 /* BookStore.swift */; };
+		486D583F1DB50A090079EA23 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D583E1DB50A090079EA23 /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		486D58381DB4D7B00079EA23 /* SearchBooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
 		486D583A1DB4D8A70079EA23 /* GoodReadsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodReadsAPI.swift; sourceTree = "<group>"; };
 		486D583C1DB4EE990079EA23 /* BookStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookStore.swift; sourceTree = "<group>"; };
+		486D583E1DB50A090079EA23 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				486D58381DB4D7B00079EA23 /* SearchBooksViewController.swift */,
 				486D583A1DB4D8A70079EA23 /* GoodReadsAPI.swift */,
 				486D583C1DB4EE990079EA23 /* BookStore.swift */,
+				486D583E1DB50A090079EA23 /* Book.swift */,
 			);
 			path = BooksForMe;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				486D58391DB4D7B00079EA23 /* SearchBooksViewController.swift in Sources */,
 				486D58271DB4D6690079EA23 /* AppDelegate.swift in Sources */,
 				486D583D1DB4EE990079EA23 /* BookStore.swift in Sources */,
+				486D583F1DB50A090079EA23 /* Book.swift in Sources */,
 				486D583B1DB4D8A70079EA23 /* GoodReadsAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
