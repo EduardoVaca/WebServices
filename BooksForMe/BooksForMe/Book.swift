@@ -27,3 +27,9 @@ class Book {
         self.imageURL = imageURL
     }
 }
+
+extension Book: Equatable {}
+
+func == (lhs: Book, rhs: Book) -> Bool {
+    return lhs.goodReadsID == rhs.goodReadsID
+}

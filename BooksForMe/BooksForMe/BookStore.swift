@@ -82,6 +82,12 @@ class BookStore: NSObject, XMLParserDelegate {
     
     func fetchImageForBook(book: Book, completion: @escaping (ImageResult) -> Void) {
         
+        // If the image was already downloaded just return it
+        if let image = book.image {
+            completion(.Success(image))
+            return
+        }
+        
         let bookURL = book.imageURL
         let request = URLRequest(url: bookURL)
         

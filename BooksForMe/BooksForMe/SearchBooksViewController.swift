@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchBooksViewController: UIViewController {
+class SearchBooksViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -19,6 +19,7 @@ class SearchBooksViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.dataSource = bookDataSource
+        tableView.delegate = self
         
         bookStore.fetchBookByName(name: "Harry") { (booksResult) in
             
@@ -32,8 +33,25 @@ class SearchBooksViewController: UIViewController {
                 }
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             })
-            
-            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let book = bookDataSource.books[indexPath.row]
+        
+        // Download the imageData...
+        bookStore.fetchImageForBook(book: book) { (imageResult) in
+            OperationQueue.main.addOperation({ 
+                //The index path for the book might have changed. Find the most recent one
+                let bookIndex = self.bookDataSource.books.index(of: book)!
+                let bookIndexPath = IndexPath(row: bookIndex, section: 0)
+                
+                // When the request finishes, only update the cell if its visible
+                if let cell = self.tableView.cellForRow(at: bookIndexPath) as? BookTableViewCell {
+                    cell.updateWithImage(image: book.image)
+                }
+            })
         }
     }
 }
