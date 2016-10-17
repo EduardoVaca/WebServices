@@ -6,12 +6,21 @@
 //  Copyright © 2016 Vaca. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /* 
     Class responsible for initializing the request to Good Reads server.
     Fetch books and download the photo of each book
  */
+
+enum ImageResult {
+    case Success(UIImage)
+    case Failure(Error)
+}
+
+enum BookError: Error {
+    case ImageCreationError
+}
 
 class BookStore: NSObject, XMLParserDelegate {
     
@@ -69,6 +78,42 @@ class BookStore: NSObject, XMLParserDelegate {
         }
         // By default the task is in 'suspend' mode.
         task.resume()        
+    }
+    
+    func fetchImageForBook(book: Book, completion: @escaping (ImageResult) -> Void) {
+        
+        let bookURL = book.imageURL
+        let request = URLRequest(url: bookURL)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            let result = self.processImageRequest(data: data, error: error)
+            
+            if case let .Success(image) = result {
+                book.image = image
+            }
+            
+            completion(result)
+            
+        }
+        
+        task.resume()
+    }
+    
+    func processImageRequest(data: Data?, error: Error?) -> ImageResult {
+        
+        guard let imageData = data,
+            let image = UIImage(data: imageData) else {
+                // Couldnt create image
+                if data == nil {
+                    return .Failure(error!)
+                }
+                else {
+                    return .Failure(BookError.ImageCreationError)
+                }
+        }
+        
+        return .Success(image)
     }
     
     

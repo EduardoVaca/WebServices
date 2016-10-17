@@ -6,7 +6,7 @@
 //  Copyright © 2016 Vaca. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Book {
     
@@ -16,6 +16,7 @@ class Book {
     let year: String
     let rating: String
     let imageURL: URL
+    var image: UIImage?
     
     init(goodReadsID: String, title: String, author: String, year: String, rating: String, imageURL: URL) {
         self.goodReadsID = goodReadsID
