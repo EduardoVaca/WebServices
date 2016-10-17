@@ -10,4 +10,11 @@ import UIKit
 
 class SearchBooksViewController: UIViewController {
     
+    var bookStore: BookStore!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bookStore.fetchBookByName(name: "Pedro")
+    }
 }

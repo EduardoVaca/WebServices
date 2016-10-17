@@ -15,7 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Pass a new BookStore to the SearchVC
+        let rootViewController = window?.rootViewController as! UINavigationController
+        let searchBooksViewController = rootViewController.topViewController as! SearchBooksViewController
+        searchBooksViewController.bookStore = BookStore()
         return true
     }
 

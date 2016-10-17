@@ -12,13 +12,14 @@ enum Method: String {
     case SearchBooks = "/search/index.xml"
 }
 
+/* Struct that contains all the knowledge of GoodReads API */
 struct GoodReadsAPI {
     
     private static let baseURLString = "http://www.goodreads.com"
     private static let apiKey = "uv1J3LcJ7zGuhzCXwaCcUQ"
     
     
-    private static func GoodReadsURL(method: Method, parameters: [String: String]?) -> URL {
+    private static func goodReadsURL(method: Method, parameters: [String: String]?) -> URL {
         
         let methodURL = baseURLString + method.rawValue
         
@@ -43,6 +44,10 @@ struct GoodReadsAPI {
         components.queryItems = queryItems
         
         return components.url!
+    }
+    
+    static func searchBooksURL(bookName: String) -> URL {
+        return goodReadsURL(method: .SearchBooks, parameters: ["q": bookName])
     }
     
 }
