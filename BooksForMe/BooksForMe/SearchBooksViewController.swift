@@ -8,32 +8,29 @@
 
 import UIKit
 
-class SearchBooksViewController: UIViewController, UITableViewDelegate {
+class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var loader: UIActivityIndicatorView!
     
     var bookStore: BookStore!
     let bookDataSource = BookDataSource()
+    var searchText = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = bookDataSource
         tableView.delegate = self
+        searchBar.delegate = self
         
-        bookStore.fetchBookByName(name: "Harry") { (booksResult) in
-            
-            OperationQueue.main.addOperation({ 
-                switch booksResult {
-                case let .Success(books):
-                    print("Successfully found: \(books.count) books")
-                    self.bookDataSource.books = books
-                case let .Failure(error):
-                    print("Error fetching photot: \(error)")
-                }
-                self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            })
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loader.isHidden = true
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -54,4 +51,30 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate {
             })
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        loader.isHidden = false
+        loader.startAnimating()
+        tableView.isHidden = false        
+        bookStore.fetchBookByName(name: searchText) { (booksResult) in
+            
+            OperationQueue.main.addOperation({
+                self.loader.stopAnimating()
+                self.loader.isHidden = true
+                switch booksResult {
+                case let .Success(books):
+                    print("Successfully found: \(books.count) books")
+                    self.bookDataSource.books = books
+                case let .Failure(error):
+                    print("Error fetching photot: \(error)")
+                }
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            })
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+    }
+    
 }

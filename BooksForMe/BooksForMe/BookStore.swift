@@ -56,7 +56,7 @@ class BookStore: NSObject, XMLParserDelegate {
     }
     
     func fetchBookByName(name: String, completion: @escaping (BooksResult) -> ()) {
-        
+        booksDictionary.removeAll()
         let url = GoodReadsAPI.searchBooksURL(bookName: name)
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request) { (data, response, error) in
