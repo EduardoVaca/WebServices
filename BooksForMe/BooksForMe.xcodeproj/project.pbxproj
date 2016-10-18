@@ -19,6 +19,7 @@
 		486D58431DB5241F0079EA23 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D58421DB5241F0079EA23 /* BookTableViewCell.swift */; };
 		48BA65E21DB65482009D2B4E /* ISBNStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E11DB65482009D2B4E /* ISBNStore.swift */; };
 		48BA65E41DB6555E009D2B4E /* BookOffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E31DB6555E009D2B4E /* BookOffersViewController.swift */; };
+		48BA65E61DB66B95009D2B4E /* EBayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E51DB66B95009D2B4E /* EBayAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		486D58421DB5241F0079EA23 /* BookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		48BA65E11DB65482009D2B4E /* ISBNStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNStore.swift; sourceTree = "<group>"; };
 		48BA65E31DB6555E009D2B4E /* BookOffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookOffersViewController.swift; sourceTree = "<group>"; };
+		48BA65E51DB66B95009D2B4E /* EBayAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EBayAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				486D58421DB5241F0079EA23 /* BookTableViewCell.swift */,
 				48BA65E11DB65482009D2B4E /* ISBNStore.swift */,
 				48BA65E31DB6555E009D2B4E /* BookOffersViewController.swift */,
+				48BA65E51DB66B95009D2B4E /* EBayAPI.swift */,
 			);
 			path = BooksForMe;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 				486D583D1DB4EE990079EA23 /* BookStore.swift in Sources */,
 				48BA65E21DB65482009D2B4E /* ISBNStore.swift in Sources */,
 				48BA65E41DB6555E009D2B4E /* BookOffersViewController.swift in Sources */,
+				48BA65E61DB66B95009D2B4E /* EBayAPI.swift in Sources */,
 				486D58431DB5241F0079EA23 /* BookTableViewCell.swift in Sources */,
 				486D583F1DB50A090079EA23 /* Book.swift in Sources */,
 				486D583B1DB4D8A70079EA23 /* GoodReadsAPI.swift in Sources */,

@@ -18,7 +18,7 @@ class BookOffersViewController: UIViewController {
         
         isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
             if case let .Success(isbn) = isbnResult {
-                print("My ISBN is: \(isbn)" )
+                print(EBayAPI.getSOAPEnvelopeWithISBN(method: .FindOffers, isbn: isbn))
             }
         }
     }
