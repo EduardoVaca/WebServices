@@ -84,7 +84,7 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
                 let destinationVc = segue.destination as! BookOffersViewController
                 destinationVc.book = book
                 destinationVc.isbnStore = ISBNStore()
-                
+                destinationVc.offerStore = OfferStore()                
             }
         }
     }

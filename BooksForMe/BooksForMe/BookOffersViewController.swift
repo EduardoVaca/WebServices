@@ -11,6 +11,7 @@ import UIKit
 class BookOffersViewController: UIViewController {
     
     var isbnStore: ISBNStore!
+    var offerStore: OfferStore!
     var book: Book!
     
     override func viewDidLoad() {
@@ -18,7 +19,7 @@ class BookOffersViewController: UIViewController {
         
         isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
             if case let .Success(isbn) = isbnResult {
-                print(EBayAPI.getSOAPEnvelopeWithISBN(method: .FindOffers, isbn: isbn))
+                self.offerStore.fetchOffersByISBN(isbn: isbn)
             }
         }
     }
