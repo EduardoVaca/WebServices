@@ -20,9 +20,10 @@ def process_payment():
 			response.status = 200
 			return ('Congratulations, you have paid: {amount} euros!'.format(amount=amount))
 		else:
-			response.status = 200
+			response.status = 402
 			return ('Sorry, not enough funds to pay: {amount} euros'.format(amount=amount))
-	else:		
+	else:
+		response.status = 406		
 		return('Invalid card number')	
 
 run(app, host='localhost', port=8080)

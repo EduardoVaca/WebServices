@@ -14,13 +14,17 @@ class BookOffersViewController: UIViewController {
     var offerStore: OfferStore!
     var book: Book!
     
+    var temp = BankRESTPayment()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
+        /*isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
             if case let .Success(isbn) = isbnResult {
                 self.offerStore.fetchOffersByISBN(isbn: isbn)
             }
-        }
+        }*/
+        
+        temp.requestPayment(firstName: "Eduardo", lastName: "Vaca", cardNumber: "123456789012", expireDate: "Nov", securityNumber: "345", amount: "34")
     }
 }
