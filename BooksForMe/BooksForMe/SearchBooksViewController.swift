@@ -77,4 +77,16 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
         self.searchText = searchText
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowBookOffers" {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow?.first {
+                let book = bookDataSource.books[selectedIndexPath]
+                let destinationVc = segue.destination as! BookOffersViewController
+                destinationVc.book = book
+                destinationVc.isbnStore = ISBNStore()
+                
+            }
+        }
+    }
+    
 }

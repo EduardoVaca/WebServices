@@ -10,6 +10,7 @@ import Foundation
 
 enum Method: String {
     case SearchBooks = "/search/index.xml"
+    case ShowBookISBN = "/book/show.json"
 }
 
 enum BooksResult {
@@ -17,8 +18,15 @@ enum BooksResult {
     case Failure(Error)
 }
 
-enum GoodReasError: Error {
+enum GoodReadsError: Error {
     case NoBooksRetrieved
+    case NoISBNFound
+    case InvalidJSON
+}
+
+enum ISBNResult {
+    case Success(String)
+    case Failure(Error)
 }
 
 /* Struct that contains all the knowledge of GoodReads API */
@@ -57,6 +65,10 @@ struct GoodReadsAPI {
     static func searchBooksURL(bookName: String) -> URL {
         return goodReadsURL(method: .SearchBooks, parameters: ["q": bookName])
     }
+    
+    static func bookISBNURL(bookID: String) -> URL {
+        return goodReadsURL(method: .ShowBookISBN, parameters: ["id": bookID])
+    }
 
     static func booksFromTempDictionary(dictionary: [[String: String]]) -> BooksResult {
         if dictionary.count > 0 {
@@ -68,12 +80,12 @@ struct GoodReadsAPI {
             }
             
             if finalBooks.count == 0 {
-                return .Failure(GoodReasError.NoBooksRetrieved)
+                return .Failure(GoodReadsError.NoBooksRetrieved)
             }
             
             return .Success(finalBooks)
         }
-        return .Failure(GoodReasError.NoBooksRetrieved)
+        return .Failure(GoodReadsError.NoBooksRetrieved)
     }
     
     private static func bookFromDictionaryItem(item: [String: String]) -> Book? {
@@ -88,6 +100,39 @@ struct GoodReadsAPI {
                 return nil
         }
         return Book(goodReadsID: bookId, title: bookTitle, author: bookAuthor, year: bookYear, rating: bookRating, imageURL: bookImageURL)
+    }
+    
+    /* 
+        IMPORTANT: The way of getting the ISBN from JSON Data in the following function is BAD.
+        GoodReads returns a wrong constructed JSON from their API. So I had no other choice than
+        work directly with the String returned.
+    */
+    static func isbnFromJSONData(data: Data) -> ISBNResult{
+        
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            guard let jsonDictionary = jsonObject as? [String: String] else {                
+                return .Failure(GoodReadsError.InvalidJSON)
+            }
+            for (_,value) in jsonDictionary {
+                let lines = value.characters.split(separator: ";")
+                for line in lines {
+                    let lineStr = String(line)
+                    if lineStr.hasPrefix("isbn="),
+                        let firstEquals = lineStr.characters.index(of: "="),
+                        let firstAmperson = lineStr.characters.index(of: "&"){
+                        var isbn = String(lineStr.characters.prefix(upTo: firstAmperson).suffix(from: firstEquals))
+                        isbn.remove(at: isbn.startIndex)
+                        return .Success(isbn)
+                    }
+                }
+            }
+            
+            return .Failure(GoodReadsError.NoISBNFound)
+            
+        } catch let error {
+            return .Failure(error)
+        }
     }
     
 }

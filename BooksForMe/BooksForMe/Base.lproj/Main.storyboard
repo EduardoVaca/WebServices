@@ -33,7 +33,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NLo-Ne-GY0" id="JQS-Do-Szt">
-                                            <frame key="frameInset" width="375" height="90"/>
+                                            <frame key="frameInset" width="375" height="90.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JLq-WB-R3p"/>
@@ -95,6 +95,7 @@
                                             <outlet property="rating" destination="sNd-fR-lCD" id="riq-LP-yLz"/>
                                             <outlet property="spinner" destination="JLq-WB-R3p" id="tvJ-D6-uGK"/>
                                             <outlet property="year" destination="Vwc-gX-P2M" id="Q6N-AV-XFM"/>
+                                            <segue destination="ov7-ZO-Yml" kind="show" identifier="ShowBookOffers" id="bVI-Cd-qUi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -123,6 +124,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="760.79999999999995" y="-613.04347826086962"/>
+        </scene>
+        <!--Book Offers View Controller-->
+        <scene sceneID="VMI-XW-z3B">
+            <objects>
+                <viewController id="ov7-ZO-Yml" customClass="BookOffersViewController" customModule="BooksForMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9CH-GL-rZ5"/>
+                        <viewControllerLayoutGuide type="bottom" id="3B2-zN-wxw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iK2-0y-EQE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QgQ-Fe-ING" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1514" y="-613"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wws-3M-W4E">
