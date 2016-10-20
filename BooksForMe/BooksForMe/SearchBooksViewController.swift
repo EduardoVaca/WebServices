@@ -17,6 +17,7 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
     var bookStore: BookStore!
     let bookDataSource = BookDataSource()
     var searchText = String()
+    var selectedBook: Book!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,11 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedBook = self.bookDataSource.books[indexPath.row]
+        self.performSegue(withIdentifier: "ShowBookOffers", sender: self)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         loader.isHidden = false
         loader.startAnimating()
@@ -79,13 +85,10 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowBookOffers" {
-            if let selectedIndexPath = tableView.indexPathForSelectedRow?.first {
-                let book = bookDataSource.books[selectedIndexPath]
-                let destinationVc = segue.destination as! BookOffersViewController
-                destinationVc.book = book
-                destinationVc.isbnStore = ISBNStore()
-                destinationVc.offerStore = OfferStore()                
-            }
+            let destinationVc = segue.destination as! BookOffersViewController
+            destinationVc.book = selectedBook
+            destinationVc.isbnStore = ISBNStore()
+            destinationVc.offerStore = OfferStore()
         }
     }
     
