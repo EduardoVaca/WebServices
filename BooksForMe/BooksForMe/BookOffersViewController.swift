@@ -71,6 +71,7 @@ class BookOffersViewController: UIViewController, UITableViewDelegate {
         if segue.identifier == "ShowPayment" {
             let destinationVc = segue.destination as! PaymentViewController
             destinationVc.localBankPayment = BankRESTPayment()
+            destinationVc.externalBankPayment = ExternalBankRESTPayment()
             destinationVc.offer = currentOffer
         }
     }

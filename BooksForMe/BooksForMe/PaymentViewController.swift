@@ -18,6 +18,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet var priceLabel: UILabel!
     
     var localBankPayment: BankRESTPayment!
+    var externalBankPayment: ExternalBankRESTPayment!
     var offer: Offer!
     
     override func viewDidLoad() {
@@ -71,6 +72,18 @@ class PaymentViewController: UIViewController {
     
     
     @IBAction func payWithExternalBank(_ sender: AnyObject) {
+        if let firstName = firstNameTextField.text,
+            let lastName = lastNameTextField.text,
+            let cardNumber = cardNumberTextField.text,
+            let expireDate = expireTextField.text,
+            let securityNumber = csvTextField.text {
+            
+            let date = expireDate.components(separatedBy: "/")
+            
+            if date.count == 2 {
+                externalBankPayment.requestPayment(amount: offer.price, name: firstName + lastName, card: cardNumber, year: date[1], month: date[0], csv: securityNumber)
+            }
+        }
     }
     
     
