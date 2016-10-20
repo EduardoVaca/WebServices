@@ -19,7 +19,11 @@ class BookOffersViewController: UIViewController {
         
         isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
             if case let .Success(isbn) = isbnResult {
-                self.offerStore.fetchOffersByISBN(isbn: isbn)
+                self.offerStore.fetchOffersByISBN(isbn: isbn, completion: { (offerResults) in
+                    if case let .Success(offers) = offerResults {
+                        print("FOUND \(offers.count) OFFERS!!!")
+                    }
+                })
             }
         }
         
