@@ -15,13 +15,14 @@ class PaymentViewController: UIViewController {
     @IBOutlet var cardNumberTextField: UITextField!
     @IBOutlet var expireTextField: UITextField!
     @IBOutlet var csvTextField: UITextField!
+    @IBOutlet var priceLabel: UILabel!
     
     var localBankPayment: BankRESTPayment!
-    var amount: String!
+    var offer: Offer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        priceLabel.text = String(offer.price!)
         // Looks for single or multiple taps anywhere on screen.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PaymentViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -41,7 +42,7 @@ class PaymentViewController: UIViewController {
             let expireDate = expireTextField.text,
             let securityNumber = csvTextField.text {
             
-                localBankPayment.requestPayment(firstName: firstName, lastName: lastName, cardNumber: cardNumber, expireDate: expireDate, securityNumber: securityNumber, amount: amount, completion: { (bankResult) in
+                localBankPayment.requestPayment(firstName: firstName, lastName: lastName, cardNumber: cardNumber, expireDate: expireDate, securityNumber: securityNumber, amount: String(offer.price!), completion: { (bankResult) in
                     
                     var messageAlert = String()
                     var titleAlert = String()

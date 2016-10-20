@@ -22,6 +22,7 @@ class BookDataSource: NSObject, UITableViewDataSource {
         
         let identifier = "BookCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! BookTableViewCell
+        cell.selectionStyle = .none
         let book = books[indexPath.row]
         cell.bookName.text = book.title
         cell.authorName.text = book.author

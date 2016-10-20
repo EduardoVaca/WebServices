@@ -61,7 +61,7 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         loader.isHidden = false
         loader.startAnimating()
-        tableView.isHidden = false        
+        
         bookStore.fetchBookByName(name: searchText) { (booksResult) in
             
             OperationQueue.main.addOperation({
@@ -74,6 +74,7 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
                 case let .Failure(error):
                     print("Error fetching photot: \(error)")
                 }
+                self.tableView.isHidden = false
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             })
         }

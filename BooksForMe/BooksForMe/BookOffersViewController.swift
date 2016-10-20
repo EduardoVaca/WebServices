@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookOffersViewController: UIViewController {
+class BookOffersViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var authorLabel: UILabel!
@@ -16,16 +16,20 @@ class BookOffersViewController: UIViewController {
     @IBOutlet var ratingLabel: UILabel!
     @IBOutlet var pictureImage: UIImageView!
     @IBOutlet var offersTable: UITableView!
+    @IBOutlet var loader: UIActivityIndicatorView!
     
     var isbnStore: ISBNStore!
     var offerStore: OfferStore!
     var book: Book!
     var offerDataSource = OfferDataSource()
+    var currentOffer: Offer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        offersTable.isHidden = true
+        loader.startAnimating()
         offersTable.dataSource = offerDataSource
+        offersTable.delegate = self
         fillBookInfo()
         
         isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
@@ -34,8 +38,11 @@ class BookOffersViewController: UIViewController {
                     if case let .Success(offers) = offerResults {
                         OperationQueue.main.addOperation({
                             self.offerDataSource.offers = offers
+                            self.loader.stopAnimating()
+                            self.loader.isHidden = true
+                            self.offersTable.isHidden = false
                             self.offersTable.reloadSections(IndexSet(integer: 0), with: .automatic)
-                        })                        
+                        })
                     }
                 })
             }
@@ -50,15 +57,21 @@ class BookOffersViewController: UIViewController {
         pictureImage.image = book.image
     }
     
-    @IBAction func pay(_ sender: AnyObject) {
-        performSegue(withIdentifier: "ShowPayment", sender: self)
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentOffer = self.offerDataSource.offers[indexPath.row]
+        self.performSegue(withIdentifier: "ShowPayment", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPayment" {
             let destinationVc = segue.destination as! PaymentViewController
             destinationVc.localBankPayment = BankRESTPayment()
-            destinationVc.amount = "34"
+            destinationVc.offer = currentOffer
         }
     }
     

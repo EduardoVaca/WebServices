@@ -198,7 +198,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HnJ-c6-FCK">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OfferCell" rowHeight="75" id="NQD-eF-QAx" customClass="OfferTableViewCell" customModule="BooksForMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="75"/>
@@ -256,6 +256,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-xo-6Qm"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -280,10 +281,12 @@
                             <constraint firstItem="HnJ-c6-FCK" firstAttribute="top" secondItem="Ojj-R4-Fk4" secondAttribute="bottom" constant="5" id="YED-ve-ppk"/>
                             <constraint firstItem="OSY-7O-ICe" firstAttribute="top" secondItem="Eak-UC-sjs" secondAttribute="top" id="f3Z-VI-7HH"/>
                             <constraint firstItem="ZzE-Q3-8PI" firstAttribute="top" secondItem="yCI-dU-0eO" secondAttribute="bottom" constant="3" id="gt9-vZ-dQy"/>
+                            <constraint firstItem="qXI-xo-6Qm" firstAttribute="centerY" secondItem="HnJ-c6-FCK" secondAttribute="centerY" id="io3-8z-dDc"/>
                             <constraint firstItem="HnJ-c6-FCK" firstAttribute="leading" secondItem="Eak-UC-sjs" secondAttribute="leading" id="mvD-Sq-M2P"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="KGd-fN-YBr" secondAttribute="trailing" constant="10" id="neF-BL-AQL"/>
                             <constraint firstItem="yBh-hB-FrI" firstAttribute="top" secondItem="pS8-Av-eIn" secondAttribute="bottom" constant="3" id="nxA-qY-qGN"/>
                             <constraint firstItem="ZzE-Q3-8PI" firstAttribute="leading" secondItem="OSY-7O-ICe" secondAttribute="leading" id="ocb-iO-5jd"/>
+                            <constraint firstItem="qXI-xo-6Qm" firstAttribute="centerX" secondItem="HnJ-c6-FCK" secondAttribute="centerX" id="sQS-bV-0C5"/>
                             <constraint firstItem="pS8-Av-eIn" firstAttribute="leading" secondItem="OSY-7O-ICe" secondAttribute="leading" id="sed-KT-4Nk"/>
                             <constraint firstItem="HnJ-c6-FCK" firstAttribute="trailing" secondItem="iK2-0y-EQE" secondAttribute="trailingMargin" id="txZ-Iy-Vfb"/>
                             <constraint firstItem="pS8-Av-eIn" firstAttribute="top" secondItem="ZzE-Q3-8PI" secondAttribute="bottom" constant="8" id="y0I-si-mEC"/>
@@ -291,6 +294,7 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="lOR-xW-Hc8" id="87n-jk-qle"/>
+                        <outlet property="loader" destination="qXI-xo-6Qm" id="p3k-5s-vci"/>
                         <outlet property="offersTable" destination="HnJ-c6-FCK" id="7sI-ec-YQn"/>
                         <outlet property="pictureImage" destination="Eak-UC-sjs" id="p4v-fX-rYm"/>
                         <outlet property="ratingLabel" destination="yBh-hB-FrI" id="qFu-v0-pbz"/>
@@ -441,6 +445,7 @@
                         <outlet property="expireTextField" destination="F3C-3R-wC3" id="294-7u-0G2"/>
                         <outlet property="firstNameTextField" destination="2vd-ze-gZa" id="I2Z-uS-KLo"/>
                         <outlet property="lastNameTextField" destination="h2q-hx-jdS" id="HRG-jY-VBC"/>
+                        <outlet property="priceLabel" destination="RYe-pD-TlY" id="Hxi-nI-ZL0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwf-sJ-8Kl" userLabel="First Responder" sceneMemberID="firstResponder"/>

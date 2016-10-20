@@ -19,13 +19,12 @@ class OfferDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "OfferCell", for: indexPath) as! OfferTableViewCell
-        
+        cell.selectionStyle = .none
         let offer = offers[indexPath.row]
         cell.titleLabel.text = offer.name
         cell.categoryLabel.text = offer.category
         cell.countryLabel.text = offer.country
-        cell.priceLabel.text = "$\(offer.price)"
-        return cell
-        
+        cell.priceLabel.text = "$\(offer.price!)"
+        return cell        
     }
 }
