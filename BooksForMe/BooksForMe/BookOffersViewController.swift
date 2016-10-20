@@ -12,9 +12,7 @@ class BookOffersViewController: UIViewController {
     
     var isbnStore: ISBNStore!
     var offerStore: OfferStore!
-    var book: Book!
-    
-    var temp = BankRESTPayment()
+    var book: Book!        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +23,17 @@ class BookOffersViewController: UIViewController {
             }
         }*/
         
-        temp.requestPayment(firstName: "Lalo", lastName: "Vaca", cardNumber: "123", expireDate: "Now", securityNumber: "123", amount: "34") { (bankResult) in
-            if case let .Success(message) = bankResult {
-                print("MESSAGE: \(message)")
-            }
+    }
+    
+    @IBAction func pay(_ sender: AnyObject) {
+        performSegue(withIdentifier: "ShowPayment", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowPayment" {
+            let destinationVc = segue.destination as! PaymentViewController
+            destinationVc.localBankPayment = BankRESTPayment()
         }
     }
+    
 }

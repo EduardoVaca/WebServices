@@ -17,6 +17,7 @@
 		486D583F1DB50A090079EA23 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D583E1DB50A090079EA23 /* Book.swift */; };
 		486D58411DB521E50079EA23 /* BookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D58401DB521E50079EA23 /* BookDataSource.swift */; };
 		486D58431DB5241F0079EA23 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D58421DB5241F0079EA23 /* BookTableViewCell.swift */; };
+		4875BCF21DB8CBAF00C8510F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875BCF11DB8CBAF00C8510F /* PaymentViewController.swift */; };
 		48BA65E21DB65482009D2B4E /* ISBNStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E11DB65482009D2B4E /* ISBNStore.swift */; };
 		48BA65E41DB6555E009D2B4E /* BookOffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E31DB6555E009D2B4E /* BookOffersViewController.swift */; };
 		48BA65E61DB66B95009D2B4E /* EBayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA65E51DB66B95009D2B4E /* EBayAPI.swift */; };
@@ -38,6 +39,7 @@
 		486D583E1DB50A090079EA23 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		486D58401DB521E50079EA23 /* BookDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDataSource.swift; sourceTree = "<group>"; };
 		486D58421DB5241F0079EA23 /* BookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		4875BCF11DB8CBAF00C8510F /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		48BA65E11DB65482009D2B4E /* ISBNStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNStore.swift; sourceTree = "<group>"; };
 		48BA65E31DB6555E009D2B4E /* BookOffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookOffersViewController.swift; sourceTree = "<group>"; };
 		48BA65E51DB66B95009D2B4E /* EBayAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EBayAPI.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				48BA65E71DB67837009D2B4E /* OfferStore.swift */,
 				48BA65E91DB6AAE0009D2B4E /* BankRESTAPI.swift */,
 				48BA65EB1DB6ACCE009D2B4E /* BankRESTPayment.swift */,
+				4875BCF11DB8CBAF00C8510F /* PaymentViewController.swift */,
 			);
 			path = BooksForMe;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				48BA65EA1DB6AAE0009D2B4E /* BankRESTAPI.swift in Sources */,
 				48BA65E21DB65482009D2B4E /* ISBNStore.swift in Sources */,
 				48BA65EC1DB6ACCE009D2B4E /* BankRESTPayment.swift in Sources */,
+				4875BCF21DB8CBAF00C8510F /* PaymentViewController.swift in Sources */,
 				48BA65E41DB6555E009D2B4E /* BookOffersViewController.swift in Sources */,
 				48BA65E61DB66B95009D2B4E /* EBayAPI.swift in Sources */,
 				486D58431DB5241F0079EA23 /* BookTableViewCell.swift in Sources */,
