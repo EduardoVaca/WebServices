@@ -9,7 +9,16 @@
 import Foundation
 
 enum MethodBankREST: String {
-    case processPayment = "/process_payment"
+    case ProcessPayment = "/process_payment"
+}
+
+enum BankResult {
+    case Success(String)
+    case Failure(Error)
+}
+
+enum BankError: Error {
+    case InvalidDataResponse    
 }
 
 struct BankRESTAPI {
@@ -31,5 +40,19 @@ struct BankRESTAPI {
             body += key + "=" + value + "&"
         }
         return body.data(using: .utf8)!
+    }
+    
+    static func messageFromData(data: Data?, error: Error?) -> BankResult {
+        if let data = data {
+            if let responseText = String(data: data, encoding: .utf8) {
+                return .Success(responseText)
+            }
+            else {
+                return .Failure(BankError.InvalidDataResponse)
+            }
+        }
+        else {
+            return .Failure(error!)
+        }
     }
 }

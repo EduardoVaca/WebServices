@@ -15,7 +15,7 @@ class BankRESTPayment {
         return URLSession(configuration: config)
     }()
     
-    func requestPayment(firstName: String, lastName: String, cardNumber: String, expireDate: String, securityNumber: String, amount: String) {
+    func requestPayment(firstName: String, lastName: String, cardNumber: String, expireDate: String, securityNumber: String, amount: String, completion: @escaping (BankResult) -> Void) {
         
         let parameters = ["first_name": firstName,
                           "last_name": lastName,
@@ -24,14 +24,16 @@ class BankRESTPayment {
                           "security_number": securityNumber,
                           "amount": amount]
         
-        let url = BankRESTAPI.bankRESTURL(method: .processPayment)
+        let url = BankRESTAPI.bankRESTURL(method: .ProcessPayment)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = BankRESTAPI.createBodyPOST(parameters: parameters)
         
         let task = session.dataTask(with: request) { (data, response, error) in
-            print(response)
-            print(data)
+            
+            let result = BankRESTAPI.messageFromData(data: data, error: error)
+            
+            completion(result)
         }
         
         task.resume()        

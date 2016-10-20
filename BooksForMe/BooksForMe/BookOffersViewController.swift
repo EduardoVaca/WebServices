@@ -25,6 +25,10 @@ class BookOffersViewController: UIViewController {
             }
         }*/
         
-        temp.requestPayment(firstName: "Eduardo", lastName: "Vaca", cardNumber: "123456789012", expireDate: "Nov", securityNumber: "345", amount: "34")
+        temp.requestPayment(firstName: "Lalo", lastName: "Vaca", cardNumber: "123", expireDate: "Now", securityNumber: "123", amount: "34") { (bankResult) in
+            if case let .Success(message) = bankResult {
+                print("MESSAGE: \(message)")
+            }
+        }
     }
 }
