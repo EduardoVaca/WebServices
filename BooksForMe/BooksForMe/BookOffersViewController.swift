@@ -33,6 +33,7 @@ class BookOffersViewController: UIViewController {
         if segue.identifier == "ShowPayment" {
             let destinationVc = segue.destination as! PaymentViewController
             destinationVc.localBankPayment = BankRESTPayment()
+            destinationVc.amount = "34"
         }
     }
     

@@ -227,12 +227,18 @@
                                     <constraint firstAttribute="width" constant="200" id="Qqv-Im-ciN"/>
                                 </constraints>
                                 <state key="normal" title="Pay with local bank"/>
+                                <connections>
+                                    <action selector="payWithLocalBank:" destination="MiE-gP-CSx" eventType="touchUpInside" id="It9-6R-snG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIk-OF-SMT">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Xyi-kp-Yzb"/>
                                 </constraints>
                                 <state key="normal" title="Pay with external bank"/>
+                                <connections>
+                                    <action selector="payWithExternalBank:" destination="MiE-gP-CSx" eventType="touchUpInside" id="lo5-Q5-ghR"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$34.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYe-pD-TlY">
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -288,6 +294,13 @@
                             <constraint firstItem="2vd-ze-gZa" firstAttribute="leading" secondItem="aa6-nX-7W1" secondAttribute="leading" id="y4R-yo-AgH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cardNumberTextField" destination="NYd-Lh-xk2" id="PtQ-uN-V2N"/>
+                        <outlet property="csvTextField" destination="8ql-8O-B7E" id="YLq-Pi-1Wd"/>
+                        <outlet property="expireTextField" destination="F3C-3R-wC3" id="294-7u-0G2"/>
+                        <outlet property="firstNameTextField" destination="2vd-ze-gZa" id="I2Z-uS-KLo"/>
+                        <outlet property="lastNameTextField" destination="h2q-hx-jdS" id="HRG-jY-VBC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwf-sJ-8Kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

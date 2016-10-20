@@ -10,7 +10,14 @@ import UIKit
 
 class PaymentViewController: UIViewController {
     
+    @IBOutlet var firstNameTextField: UITextField!
+    @IBOutlet var lastNameTextField: UITextField!
+    @IBOutlet var cardNumberTextField: UITextField!
+    @IBOutlet var expireTextField: UITextField!
+    @IBOutlet var csvTextField: UITextField!
+    
     var localBankPayment: BankRESTPayment!
+    var amount: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,5 +32,45 @@ class PaymentViewController: UIViewController {
         //Hide keyboard
         view.endEditing(true)
     }
+    
+    
+    @IBAction func payWithLocalBank(_ sender: AnyObject) {
+        if let firstName = firstNameTextField.text,
+            let lastName = lastNameTextField.text,
+            let cardNumber = cardNumberTextField.text,
+            let expireDate = expireTextField.text,
+            let securityNumber = csvTextField.text {
+            
+                localBankPayment.requestPayment(firstName: firstName, lastName: lastName, cardNumber: cardNumber, expireDate: expireDate, securityNumber: securityNumber, amount: amount, completion: { (bankResult) in
+                    
+                    var messageAlert = String()
+                    var titleAlert = String()
+                    
+                    switch bankResult {
+                    case let .Success(message):
+                        messageAlert = message
+                        titleAlert = "Transaction Info"
+                    case .Failure(_):
+                        messageAlert = "Error in transaction"
+                        titleAlert = "Sorry"
+                    }
+                    
+                    OperationQueue.main.addOperation({
+                        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Ok", style: .default, handler: { (_) in
+                            
+                        })
+                        alertController.addAction(action)
+                        self.present(alertController, animated: true, completion: nil)
+                    })
+                })
+        }
+        
+    }
+    
+    
+    @IBAction func payWithExternalBank(_ sender: AnyObject) {
+    }
+    
     
 }
