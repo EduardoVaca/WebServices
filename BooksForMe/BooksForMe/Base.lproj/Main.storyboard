@@ -349,7 +349,7 @@
                                 <color key="textColor" red="0.5450980392" green="0.3411764706" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="01/22" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F3C-3R-wC3">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="01/2019" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F3C-3R-wC3">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="NSn-91-6Fr"/>
                                 </constraints>
@@ -385,6 +385,11 @@
                                     <action selector="payWithExternalBank:" destination="MiE-gP-CSx" eventType="touchUpInside" id="lo5-Q5-ghR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qi-SV-2kt">
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$34.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYe-pD-TlY">
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.5450980392" green="0.3411764706" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -398,13 +403,9 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qi-SV-2kt">
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="byO-pM-6Ym"/>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="h2q-hx-jdS" firstAttribute="leading" secondItem="aa6-nX-7W1" secondAttribute="leading" id="22l-G3-g9f"/>
                             <constraint firstItem="8ql-8O-B7E" firstAttribute="trailing" secondItem="ypk-um-M9F" secondAttribute="trailing" id="3M7-QY-cKD"/>
@@ -415,6 +416,7 @@
                             <constraint firstItem="3qi-SV-2kt" firstAttribute="top" secondItem="m6Q-d4-vgh" secondAttribute="bottom" constant="30" id="DkA-Gy-AMg"/>
                             <constraint firstItem="aa6-nX-7W1" firstAttribute="leading" secondItem="WkY-wa-nUi" secondAttribute="leadingMargin" id="ECj-xN-FtA"/>
                             <constraint firstItem="3qi-SV-2kt" firstAttribute="leading" secondItem="WkY-wa-nUi" secondAttribute="leadingMargin" constant="100" id="GKU-10-lJP"/>
+                            <constraint firstItem="byO-pM-6Ym" firstAttribute="centerY" secondItem="3qi-SV-2kt" secondAttribute="centerY" id="Gi6-Po-f1s"/>
                             <constraint firstItem="2vd-ze-gZa" firstAttribute="top" secondItem="aa6-nX-7W1" secondAttribute="bottom" constant="5" id="IKF-J7-Utc"/>
                             <constraint firstItem="Mfq-HH-N2v" firstAttribute="leading" secondItem="aa6-nX-7W1" secondAttribute="leading" id="JDE-pR-fzU"/>
                             <constraint firstItem="aa6-nX-7W1" firstAttribute="top" secondItem="m6Q-d4-vgh" secondAttribute="bottom" constant="100" id="JbW-wS-fId"/>
@@ -431,6 +433,7 @@
                             <constraint firstItem="NYd-Lh-xk2" firstAttribute="top" secondItem="Nfr-gi-Jqi" secondAttribute="bottom" constant="5" id="g5n-g8-PBj"/>
                             <constraint firstItem="qrF-3X-Age" firstAttribute="leading" secondItem="F3C-3R-wC3" secondAttribute="leading" id="gDp-Jb-4gx"/>
                             <constraint firstItem="NYd-Lh-xk2" firstAttribute="leading" secondItem="aa6-nX-7W1" secondAttribute="leading" id="i0R-pm-ely"/>
+                            <constraint firstItem="byO-pM-6Ym" firstAttribute="leading" secondItem="3qi-SV-2kt" secondAttribute="trailing" constant="50" id="l01-6h-gjx"/>
                             <constraint firstItem="bIk-OF-SMT" firstAttribute="centerX" secondItem="WkY-wa-nUi" secondAttribute="centerX" id="pQH-gh-t8r"/>
                             <constraint firstItem="F3C-3R-wC3" firstAttribute="top" secondItem="qrF-3X-Age" secondAttribute="bottom" constant="5" id="tDO-ja-2Ja"/>
                             <constraint firstItem="ypk-um-M9F" firstAttribute="leading" secondItem="bIk-OF-SMT" secondAttribute="leading" id="tUc-qG-jZD"/>
@@ -445,6 +448,7 @@
                         <outlet property="expireTextField" destination="F3C-3R-wC3" id="294-7u-0G2"/>
                         <outlet property="firstNameTextField" destination="2vd-ze-gZa" id="I2Z-uS-KLo"/>
                         <outlet property="lastNameTextField" destination="h2q-hx-jdS" id="HRG-jY-VBC"/>
+                        <outlet property="loader" destination="byO-pM-6Ym" id="jS8-FC-Lmc"/>
                         <outlet property="priceLabel" destination="RYe-pD-TlY" id="Hxi-nI-ZL0"/>
                     </connections>
                 </viewController>

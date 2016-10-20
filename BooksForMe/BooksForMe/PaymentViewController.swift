@@ -16,6 +16,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet var expireTextField: UITextField!
     @IBOutlet var csvTextField: UITextField!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var loader: UIActivityIndicatorView!
     
     var localBankPayment: BankRESTPayment!
     var externalBankPayment: ExternalBankRESTPayment!
@@ -23,6 +24,7 @@ class PaymentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loader.isHidden = true
         priceLabel.text = String(offer.price!)
         // Looks for single or multiple taps anywhere on screen.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PaymentViewController.dismissKeyboard))
@@ -42,6 +44,9 @@ class PaymentViewController: UIViewController {
             let cardNumber = cardNumberTextField.text,
             let expireDate = expireTextField.text,
             let securityNumber = csvTextField.text {
+            
+                loader.isHidden = false
+                loader.startAnimating()
             
                 localBankPayment.requestPayment(firstName: firstName, lastName: lastName, cardNumber: cardNumber, expireDate: expireDate, securityNumber: securityNumber, amount: String(offer.price!), completion: { (bankResult) in
                     
@@ -72,6 +77,9 @@ class PaymentViewController: UIViewController {
             let expireDate = expireTextField.text,
             let securityNumber = csvTextField.text {
             
+            loader.isHidden = false
+            loader.startAnimating()
+            
             let date = expireDate.components(separatedBy: "/")
             
             if date.count == 2 {
@@ -98,6 +106,8 @@ class PaymentViewController: UIViewController {
     
     func createAlertAfterPayment(title: String, message: String) {
         OperationQueue.main.addOperation({
+            self.loader.stopAnimating()
+            self.loader.isHidden = true
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok", style: .default, handler: { (_) in
                 
