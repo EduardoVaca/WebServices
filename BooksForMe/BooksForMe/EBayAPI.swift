@@ -9,29 +9,29 @@
 import Foundation
 
 enum MethodEBay: String {
-    case FindOffers = "FindItemsByProductRequest"
+    case FindOffers = "findItemsByProduct"
 }
 
 
 struct EBayAPI {
     
-    private static let baseSandBoxURLString = "http://svcs.sandbox.ebay.com/services/search/FindingService/v1"
-    private static let appID = "AaltoUni-ws-SBX-3e6eb0ea5-11d466dd"
+    private static let baseSandBoxURLString = "http://svcs.ebay.com/services/search/FindingService/v1"
+    private static let appID = "AaltoUni-ws-PRD-6e6e6803e-27f37b0f"
     
     
-    static func getSOAPEnvelopeWithISBN(method: MethodEBay, isbn: String) -> String {
-        var envelope = "<?xml version=\"1.0\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns=\"" + baseSandBoxURLString + "\">"
-        envelope += "<soap:Header><X-EBAY-SOA-SECURITY-APPNAME>" + appID + "</X-EBAY-SOA-SECURITY-APPNAME>"
-        envelope += "<X-EBAY-SOA-MESSAGE-PROTOCOL>SOAP12</X-EBAY-SOA-MESSAGE-PROTOCOL>"
-        envelope += "<X-EBAY-SOA-OPERATION-NAME>FindItemsByProductRequest</X-EBAY-SOA-OPERATION-NAME>"
-        envelope += "</soap:Header>"
-        envelope += "<soap:Body><FindItemsByProductRequest><productId type=\"ISBN\">" + isbn + "</productId></FindItemsByProductRequest></soap:Body></soap:Envelope>"
+    static func getSOAPEnvelopeWithISBN(method: MethodEBay, isbn: String, results: Int) -> String {
+        var envelope = "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"http://www.ebay.com/marketplace/search/v1/services\"><soap:Header/>"
+        envelope += "<soap:Body><findItemsByProductRequest><productId type=\"ISBN\">" + isbn + "</productId><paginationInput><entriesPerPage>" + String(results) + "</entriesPerPage></paginationInput></findItemsByProductRequest></soap:Body></soap:Envelope>"
         return envelope
     }
     
-    static func getEbaySandBoxURL() -> URL? {
-        return URL(string: baseSandBoxURLString)
+    static func getEbaySandBoxURL(method: MethodEBay) -> URL? {
+        var url = baseSandBoxURLString + "?SECURITY-APPNAME=" + appID + "&OPERATION-NAME=" + method.rawValue
+        // This for eBay to support SOAP
+        url += "&MESSAGE-PROTOCOL=SOAP12"
+        print("URL: \(url)")
+        return URL(string: url)
     }
-        
+    
     
 }

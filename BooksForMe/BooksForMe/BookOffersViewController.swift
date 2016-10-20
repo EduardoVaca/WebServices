@@ -17,11 +17,11 @@ class BookOffersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
+        isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in
             if case let .Success(isbn) = isbnResult {
                 self.offerStore.fetchOffersByISBN(isbn: isbn)
             }
-        }*/
+        }
         
     }
     
