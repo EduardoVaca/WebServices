@@ -12,8 +12,19 @@ import Foundation
     Struct in charge of interating with an external API developed by another student from the Web Services class
  */
 
+
+
 enum MethodExternalBank: String {
     case CardPayment = "/api/v1/transactions"
+}
+
+enum ExternalBankResult {
+    case Success(String)
+    case Failure(Error)
+}
+
+enum ExternalBankError: Error {
+    case InvalidJSONData
 }
 
 struct ExternalBankRESTAPI {
@@ -37,6 +48,24 @@ struct ExternalBankRESTAPI {
         let json = "{\"amountInCents\":" + String(valueInCents) + ",\"card\": {\"owner\":" + owner + ",\"number\":" + cardNumber + ",\"validYear\":" + String(year) + ",\"validMonth\":" + String(month) + ",\"csv\":" + csv + "},\"targetIBAN\": \"123456789\",\"transactionMessage\": \"BooksForMe\"}"
         
         return json
+    }
+    
+    static func messageFromJSONData(data: Data) -> ExternalBankResult {
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
+            // Just returning json as string -> very simple json.
+            guard let jsonDictionary = json as? [String: String] else {
+                return .Failure(ExternalBankError.InvalidJSONData)
+            }
+            var message = ""
+            for (key, value) in jsonDictionary {
+                message += key + ": " + String(value) + "\n"
+            }
+            return .Success(message)
+        }
+        catch let jsonError {
+            return .Failure(jsonError)
+        }
     }
     
     

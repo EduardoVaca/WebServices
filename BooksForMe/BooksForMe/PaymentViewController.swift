@@ -57,14 +57,8 @@ class PaymentViewController: UIViewController {
                         titleAlert = "Sorry"
                     }
                     
-                    OperationQueue.main.addOperation({
-                        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
-                        let action = UIAlertAction(title: "Ok", style: .default, handler: { (_) in
-                            
-                        })
-                        alertController.addAction(action)
-                        self.present(alertController, animated: true, completion: nil)
-                    })
+                    self.createAlertAfterPayment(title: titleAlert, message: messageAlert)
+                    
                 })
         }
         
@@ -81,9 +75,36 @@ class PaymentViewController: UIViewController {
             let date = expireDate.components(separatedBy: "/")
             
             if date.count == 2 {
-                externalBankPayment.requestPayment(amount: offer.price, name: firstName + lastName, card: cardNumber, year: date[1], month: date[0], csv: securityNumber)
+                externalBankPayment.requestPayment(amount: offer.price, name: firstName + lastName, card: cardNumber, year: date[1], month: date[0], csv: securityNumber, completion: { (bankResult) in
+                    
+                    var messageAlert = String()
+                    var titleAlert = String()
+                    
+                    switch bankResult {
+                    case let .Success(message):
+                        messageAlert = message
+                        titleAlert = "Transaction Info"
+                    case .Failure(_):
+                        messageAlert = "Error in transaction"
+                        titleAlert = "Sorry"
+                    }
+                    
+                    self.createAlertAfterPayment(title: titleAlert, message: messageAlert)
+                    
+                })
             }
         }
+    }
+    
+    func createAlertAfterPayment(title: String, message: String) {
+        OperationQueue.main.addOperation({
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default, handler: { (_) in
+                
+            })
+            alertController.addAction(action)
+            self.present(alertController, animated: true, completion: nil)
+        })
     }
     
     

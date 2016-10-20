@@ -15,7 +15,7 @@ class ExternalBankRESTPayment {
         return URLSession(configuration: config)
     }()
     
-    func requestPayment(amount: Float, name: String, card: String, year: String, month: String, csv: String) {
+    func requestPayment(amount: Float, name: String, card: String, year: String, month: String, csv: String, completion: @escaping (ExternalBankResult) -> Void) {
         
         let url = ExternalBankRESTAPI.externalBankURL(method: .CardPayment)
         if let body = ExternalBankRESTAPI.createJSONBody(amount: amount, owner: name, cardNumber: card, expireYear: year, expireMonth: month, csvString: csv) {
@@ -26,12 +26,20 @@ class ExternalBankRESTPayment {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
             let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-                print(response)
+                
+                let result = self.proccessData(data: data, error: error)
+                completion(result)
             })
             
             task.resume()
         }
+    }
+    
+    func proccessData(data: Data?, error: Error?) -> ExternalBankResult {
+        guard let jsonData = data else {
+            return .Failure(error!)
+        }
         
-        
+        return ExternalBankRESTAPI.messageFromJSONData(data: jsonData)
     }
 }
