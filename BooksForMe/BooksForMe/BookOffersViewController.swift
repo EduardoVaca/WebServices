@@ -30,6 +30,8 @@ class BookOffersViewController: UIViewController, UITableViewDelegate {
         loader.startAnimating()
         offersTable.dataSource = offerDataSource
         offersTable.delegate = self
+        offersTable.separatorColor = UIColor.brown
+        offersTable.separatorStyle = .singleLine
         fillBookInfo()
         
         isbnStore.fetchISBNById(id: book.goodReadsID) { (isbnResult) in

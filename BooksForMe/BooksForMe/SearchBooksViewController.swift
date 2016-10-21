@@ -26,6 +26,9 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
         tableView.delegate = self
         searchBar.delegate = self
         
+        tableView.separatorColor = UIColor.brown
+        tableView.separatorStyle = .singleLine
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
