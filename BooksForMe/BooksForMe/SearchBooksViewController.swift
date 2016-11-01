@@ -21,7 +21,7 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController!.navigationBar.isTranslucent = false
         tableView.dataSource = bookDataSource
         tableView.delegate = self
         searchBar.delegate = self
@@ -33,7 +33,8 @@ class SearchBooksViewController: UIViewController, UITableViewDelegate, UISearch
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().backgroundColor = UIColor.brown        
         loader.isHidden = true
     }
     
