@@ -29,11 +29,30 @@ enum ISBNResult {
     case Failure(Error)
 }
 
-/* Struct that contains all the knowledge of GoodReads API */
-struct GoodReadsAPI {
+/* Class that contains all the knowledge of GoodReads API */
+class GoodReadsAPI: NSObject, XMLParserDelegate {
     
     private static let baseURLString = "http://www.goodreads.com"
-    private static let apiKey = "uv1J3LcJ7zGuhzCXwaCcUQ"
+    private static let apiKey = "YOUR KEY HERE"
+    
+    private var parser = XMLParser()
+    private var currentElement = String()
+    private var passData = false
+    private var passBook = false
+    private var currentBook = [String: String]()
+    private var books = [Book]()
+    
+    enum Fields: String {
+        case workItem = "work"
+        case bookItem = "best_book"
+        case id = "id"
+        case author = "name"
+        case year = "original_publication_year"
+        case rating = "average_rating"
+        case title = "title"
+        case image = "image_url"
+    }
+
     
     private static func goodReadsURL(method: Method, parameters: [String: String]?) -> URL {
         
@@ -69,24 +88,23 @@ struct GoodReadsAPI {
     static func bookISBNURL(bookID: String) -> URL {
         return goodReadsURL(method: .ShowBookISBN, parameters: ["id": bookID])
     }
-
-    static func booksFromTempDictionary(dictionary: [[String: String]]) -> BooksResult {
-        if dictionary.count > 0 {
-            var finalBooks = [Book]()
-            for item in dictionary {
-                if let book = bookFromDictionaryItem(item: item) {
-                    finalBooks.append(book)
-                }
-            }
-            
-            if finalBooks.count == 0 {
-                return .Failure(GoodReadsError.NoBooksRetrieved)
-            }
-            
-            return .Success(finalBooks)
+    
+    func booksFromXMLData(data: Data) -> BooksResult {
+        books.removeAll()
+        self.parser = XMLParser(data: data)
+        self.parser.delegate = self
+        
+        self.parser.parse()
+        
+        if books.count > 0 {
+            return .Success(books)
         }
-        return .Failure(GoodReadsError.NoBooksRetrieved)
+        else {
+            return .Failure(GoodReadsError.NoBooksRetrieved)
+        }
+        
     }
+
     
     private static func bookFromDictionaryItem(item: [String: String]) -> Book? {
         guard let bookId = item["id"],
@@ -134,5 +152,78 @@ struct GoodReadsAPI {
             return .Failure(error)
         }
     }
+    
+    /*
+     XML Parser functions
+     Implementation depends on the data returned and the interested fields.
+     */
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        currentElement = elementName;
+        if currentElement == Fields.workItem.rawValue {
+            passData = true
+        }
+        else if currentElement == Fields.bookItem.rawValue {
+            passBook = true
+        }
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if passData && elementName == Fields.workItem.rawValue {
+            passData = false
+            
+            if let book = GoodReadsAPI.bookFromDictionaryItem(item: currentBook) {
+                books.append(book)
+            }
+            
+            currentBook.removeAll()
+            currentElement = ""
+        }
+        if passBook && elementName == Fields.bookItem.rawValue {
+            passBook = false
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        if passData {
+            switch currentElement {
+            case Fields.rating.rawValue:
+                if currentBook[Fields.rating.rawValue] == nil {
+                    currentBook[Fields.rating.rawValue] = string
+                }
+            case Fields.year.rawValue:
+                if currentBook[Fields.year.rawValue] == nil {
+                    currentBook[Fields.year.rawValue] = string
+                }
+            default: break
+            }
+        }
+        if passBook {
+            switch currentElement {
+            case Fields.id.rawValue:
+                if currentBook[Fields.id.rawValue] == nil {
+                    currentBook[Fields.id.rawValue] = string
+                }
+            case Fields.author.rawValue:
+                if currentBook[Fields.author.rawValue] == nil {
+                    currentBook[Fields.author.rawValue] = string
+                }
+            case Fields.title.rawValue:
+                if currentBook[Fields.title.rawValue] == nil {
+                    currentBook[Fields.title.rawValue] = string
+                }
+            case Fields.image.rawValue:
+                if currentBook[Fields.image.rawValue] == nil {
+                    currentBook[Fields.image.rawValue] = string
+                }
+            default: break
+            }
+        }
+    }
+    
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print("failure error: ", parseError)
+    }
+
     
 }

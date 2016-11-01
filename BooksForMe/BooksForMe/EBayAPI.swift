@@ -24,7 +24,13 @@ enum OfferError: Error {
 class EBayAPI: NSObject, XMLParserDelegate {
     
     private static let baseSandBoxURLString = "http://svcs.ebay.com/services/search/FindingService/v1"
-    private static let appID = "AaltoUni-ws-PRD-6e6e6803e-27f37b0f"
+    private static let appID = "YOUR KEY HERE"
+    
+    private var parser = XMLParser()
+    private var currentElement = String()
+    private var passOffer = false
+    private var offers = [Offer]()
+    private var currentOffer = [String: String]()
     
     enum Fields: String {
         case Offer = "item"
@@ -33,11 +39,6 @@ class EBayAPI: NSObject, XMLParserDelegate {
         case Country = "country"
         case Price = "currentPrice"
     }
-    private var parser = XMLParser()
-    private var currentElement = String()
-    private var passOffer = false
-    private var offers = [Offer]()
-    private var currentOffer = [String: String]()
 
     
     static func getSOAPEnvelopeWithISBN(method: MethodEBay, isbn: String, results: Int) -> String {
@@ -59,8 +60,7 @@ class EBayAPI: NSObject, XMLParserDelegate {
         
         self.parser.parse()
         
-        if offers.count > 0 {
-            print(offers)
+        if offers.count > 0 {        
             return .Success(offers)
         }
         else {

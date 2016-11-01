@@ -10,20 +10,6 @@ import Foundation
 
 class OfferStore: NSObject, XMLParserDelegate {
     
-    enum Fields: String {
-        case Offer = "item"
-        case Name = "title"
-        case Category = "categoryName"
-        case Country = "country"
-        case Price = "currentPrice"
-    }
-    
-    var parser = XMLParser()
-    var currentElement = String()
-    var passOffer = false
-    var offersDictionary = [[String: String]]()
-    var currentOffer = [String: String]()
-    
     let eBayAPI = EBayAPI()
     
     let session: URLSession = {
